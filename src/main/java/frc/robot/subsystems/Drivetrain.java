@@ -2,11 +2,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -21,6 +24,8 @@ public class Drivetrain extends SubsystemBase {
     private DifferentialDrive robotDrive;
     public DifferentialDriveOdometry robotDriveOdometry;
     public ADXRS450_Gyro gyro;
+    public ADIS16470_IMU IMU;
+
 
     public Drivetrain() {
         initialize();
@@ -28,6 +33,9 @@ public class Drivetrain extends SubsystemBase {
 
     public void initialize() {
         gyro = new ADXRS450_Gyro();
+        IMU = new ADIS16470_IMU();
+        
+        
 
         FL_drive = new WPI_TalonFX(Constants.FL_CAN_ID);
 
@@ -132,6 +140,15 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic(){
         robotDriveOdometry.update(gyro.getRotation2d(), 0, 0);
+
+    }
+    public PIDController chargeStationPID;
+    double pitchAxis = 0;
+    public void correctYaw(){
+        chargeStationPID = new PIDController(.2, 0, 0);
+        leftMotorControllerGroup.set(chargeStationPID.calculate(pitchAxis, 0));
+        rightMotorControllerGroup.set(chargeStationPID.calculate(pitchAxis, 0));
+        
 
     }
 
