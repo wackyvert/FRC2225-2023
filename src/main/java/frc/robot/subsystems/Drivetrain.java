@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -18,14 +21,15 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
 
-    public WPI_TalonFX FL_drive, FR_drive, BL_drive, BR_drive;
+    public WPI_TalonFX FL_drive, FR_drive, BL_drive, BR_drive, H_drive;
     public Encoder flEncoder, frEncoder, blEncoder, brEncoder;
     private MotorControllerGroup leftMotorControllerGroup, rightMotorControllerGroup;
     private DifferentialDrive robotDrive;
     public DifferentialDriveOdometry robotDriveOdometry;
     public ADXRS450_Gyro gyro;
     public ADIS16470_IMU IMU;
-
+    public PhotonCamera camera = new PhotonCamera("photonVision");
+    public PhotonPipelineResult result;
 
     public Drivetrain() {
         initialize();
@@ -35,7 +39,7 @@ public class Drivetrain extends SubsystemBase {
         gyro = new ADXRS450_Gyro();
         IMU = new ADIS16470_IMU();
         
-        
+        H_drive = new WPI_TalonFX(Constants.H_CAN_ID);
 
         FL_drive = new WPI_TalonFX(Constants.FL_CAN_ID);
 
@@ -86,6 +90,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double ticksToMeter(double encoder) {
+        //TODO: Change this once chassis finished
         double whd = 0;
         return (double) (encoder) * ((whd * Math.PI) / (/* TalonFX CPR */2048));
     }
@@ -133,6 +138,16 @@ public class Drivetrain extends SubsystemBase {
 
     public void arcadeDrive(double speed, double turn) {
         robotDrive.arcadeDrive(speed, turn);
+    }
+    public void hDrive(double speed, double turn, double strafe){
+        arcadeDrive(speed, turn);
+        H_drive.set(strafe);
+    }
+    public void VisionAlign(){
+        if(result.hasTargets()){
+            result.getBestTarget().getBestCameraToTarget().getX()
+        }
+
     }
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
            return new DifferentialDriveWheelSpeeds(getLeftEncoderSpeed(), getRightEncoderSpeed());
