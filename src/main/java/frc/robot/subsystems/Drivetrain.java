@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.targeting.PhotonPipelineResult;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -28,8 +26,8 @@ public class Drivetrain extends SubsystemBase {
     public DifferentialDriveOdometry robotDriveOdometry;
     public ADXRS450_Gyro gyro;
     public ADIS16470_IMU IMU;
-    public PhotonCamera camera = new PhotonCamera("photonVision");
-    public PhotonPipelineResult result;
+   // public PhotonCamera camera = new PhotonCamera("photonVision");
+    //public PhotonPipelineResult result;
 
     public Drivetrain() {
         initialize();
@@ -143,12 +141,12 @@ public class Drivetrain extends SubsystemBase {
         arcadeDrive(speed, turn);
         H_drive.set(strafe);
     }
-    public void VisionAlign(){
+    /*public void VisionAlign(){
         if(result.hasTargets()){
             result.getBestTarget().getBestCameraToTarget().getX()
         }
 
-    }
+    }*/
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
            return new DifferentialDriveWheelSpeeds(getLeftEncoderSpeed(), getRightEncoderSpeed());
           }
