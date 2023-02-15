@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -14,12 +16,15 @@ import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
 
-    public WPI_TalonFX FL_drive, FR_drive, BL_drive, BR_drive, H_drive;
+    public WPI_TalonFX FL_drive, FR_drive, BL_drive, BR_drive;
+    public CANSparkMax H_drive;
     public Encoder flEncoder, frEncoder, blEncoder, brEncoder;
     private MotorControllerGroup leftMotorControllerGroup, rightMotorControllerGroup;
     private DifferentialDrive robotDrive;
@@ -37,7 +42,7 @@ public class Drivetrain extends SubsystemBase {
         gyro = new ADXRS450_Gyro();
         IMU = new ADIS16470_IMU();
         
-        H_drive = new WPI_TalonFX(Constants.H_CAN_ID);
+        H_drive = new CANSparkMax(Constants.H_CAN_ID, MotorType.kBrushless);
 
         FL_drive = new WPI_TalonFX(Constants.FL_CAN_ID);
 
@@ -153,7 +158,7 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic(){
         robotDriveOdometry.update(gyro.getRotation2d(), 0, 0);
-
+            SmartDashboard.putNumber("Encoder", BL_drive.getSelectedSensorPosition());
     }
     public PIDController chargeStationPID;
     double pitchAxis = 0;

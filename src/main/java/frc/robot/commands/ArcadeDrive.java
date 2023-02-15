@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OperatorInput;
 import frc.robot.RobotContainer;
+import frc.robot.ScaleInputs;
 
 public class ArcadeDrive extends CommandBase {
   
@@ -16,11 +17,13 @@ public class ArcadeDrive extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {RobotContainer.mDrivetrain.hDrive(OperatorInput.getY(), OperatorInput.getX(), OperatorInput.getRot());}
+  public void execute() {RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getY()), ScaleInputs.scaleInputs(OperatorInput.getRot(), .35, .15, .7)*.4, ScaleInputs.scaleInputs(OperatorInput.getX(),.3,.15,2));}
     
   // Called once the command ends or is interrupted.
   @Override

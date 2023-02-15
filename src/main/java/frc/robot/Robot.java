@@ -85,8 +85,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("left enc avg", RobotContainer.mDrivetrain.getLeftEncoder());
-    SmartDashboard.putNumber("right encoder avg", RobotContainer.mDrivetrain.getRightEncoder());
+    
 }
 
   @Override
