@@ -18,7 +18,7 @@ import frc.robot.commands.ArcadeDrive;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  public static boolean chargeMode;
   private RobotContainer m_robotContainer;
 
   /**
@@ -79,6 +79,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    chargeMode = false;
     CommandScheduler.getInstance().setDefaultCommand(RobotContainer.mDrivetrain, new ArcadeDrive());
   }
 
