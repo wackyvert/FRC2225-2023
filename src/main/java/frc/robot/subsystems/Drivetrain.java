@@ -63,8 +63,8 @@ public class Drivetrain extends SubsystemBase {
 
         resetEncoders();
 
-        robotDriveOdometry = new DifferentialDriveOdometry(gyro.getRotation2d(), getEncoderSide(FL_drive, BL_drive),
-                getEncoderSide(BR_drive, FR_drive));
+        robotDriveOdometry = new DifferentialDriveOdometry(gyro.getRotation2d(), getLeftEncoder(),
+                getRightEncoder());
 
     }
 
