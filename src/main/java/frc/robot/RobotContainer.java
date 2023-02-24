@@ -5,12 +5,24 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmIn;
+import frc.robot.commands.ArmOut;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ChargeSwitch;
+import frc.robot.commands.CloseClaw;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Grab;
+import frc.robot.commands.OpenClaw;
+import frc.robot.commands.TurnPivot;
+import frc.robot.commands.TurnPivotDown;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OperatorInput;
+
+import org.opencv.osgi.OpenCVNativeLoader;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -27,17 +39,25 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final Drivetrain mDrivetrain = new Drivetrain();
+  public static final Claw m_Claw = new Claw();
+  public static final Intake mIntake = new Intake();
   
-  
-
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  Joystick joystick = new Joystick(0);
+  Joystick joystick = new Joystick(Constants.OperatorConstants.JOYSTICK_ID);
   Trigger button14 = new JoystickButton(joystick, 14);
+  Trigger button13 = new JoystickButton(joystick, 13);
+  Trigger button2 = new JoystickButton(joystick, 2);
+  Trigger button3 = new JoystickButton(joystick, 3);
+  Trigger button4 = new JoystickButton(joystick, 4);
+  Trigger button1 = new JoystickButton(joystick, 1);
+  Trigger button5 = new JoystickButton(joystick, 5);
+  Trigger button6 = new JoystickButton(joystick, 6);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+
+
   public RobotContainer() {
     // Configure the trigger bindings
-    //configureBindings();
+    configureBindings();
     
 
   }
@@ -54,6 +74,13 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     button14.onTrue(new ChargeSwitch());
+    button13.onTrue(new Grab());
+    button2.whileTrue(new CloseClaw());
+    button1.whileTrue(new OpenClaw());
+    button3.whileTrue(new ArmOut());
+    button4.whileTrue(new ArmIn());
+    button5.whileTrue(new TurnPivotDown());
+    button6.whileTrue(new TurnPivot());
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     
