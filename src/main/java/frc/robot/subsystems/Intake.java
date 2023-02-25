@@ -48,6 +48,8 @@ LeftSb.set(.6);
 new WaitCommand(.6);
 stopSb();
 intakeBagMotors();
+new WaitCommand(.6);
+SpinIntakeGroup.set(0);
 }
 
 public void stopBag(){

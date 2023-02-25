@@ -7,17 +7,17 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmIn;
 import frc.robot.commands.ArmOut;
-import frc.robot.commands.Autos;
+
 import frc.robot.commands.ChargeSwitch;
 import frc.robot.commands.CloseClaw;
-import frc.robot.commands.ExampleCommand;
+
 import frc.robot.commands.Grab;
 import frc.robot.commands.OpenClaw;
 import frc.robot.commands.TurnPivot;
 import frc.robot.commands.TurnPivotDown;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
+
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OperatorInput;
 

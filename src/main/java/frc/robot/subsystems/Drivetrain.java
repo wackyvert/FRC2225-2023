@@ -107,7 +107,11 @@ public class Drivetrain extends SubsystemBase {
     public double getTurnRate() {
         return -gyro.getRate();
     }
-
+    public void stopAll(){
+        leftMotorControllerGroup.set(0);
+        rightMotorControllerGroup.set(0);
+        H_drive.set(0);
+    }
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftMotorControllerGroup.setVoltage(leftVolts);
         rightMotorControllerGroup.setVoltage(rightVolts);
