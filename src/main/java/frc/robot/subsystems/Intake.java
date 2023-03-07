@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -22,6 +23,8 @@ public void initialize(){
   LeftBag = new WPI_TalonSRX(Constants.LeftBag_CAN_ID);
   RightSb = new WPI_VictorSPX(Constants.RightSb_CAN_ID);
   LeftSb = new WPI_VictorSPX(Constants.LeftSb_CAN_ID);
+  LeftSb.setInverted(true);
+  LeftBag.setInverted(true);
 
 MoveIntakeGroup = new MotorControllerGroup(LeftSb,RightSb);
 SpinIntakeGroup = new MotorControllerGroup(LeftBag,RightBag);
@@ -43,13 +46,15 @@ LeftSb.set(speed);
 
 
 public void grab(){
-runSb(.6);
+/*runSb(.6);
 LeftSb.set(.6);
 new WaitCommand(.6);
 stopSb();
 intakeBagMotors();
 new WaitCommand(.6);
-SpinIntakeGroup.set(0);
+SpinIntakeGroup.set(0);*/
+RightSb.set(.5);
+LeftSb.set(.5);
 }
 
 public void stopBag(){
@@ -59,12 +64,15 @@ LeftBag.set(0);
 }
 
 public void runBag(double speed){
-RightBag.set(.5);
-LeftBag.set(.5);
+RightBag.set(speed);
+LeftBag.set(speed);
 
 
 }
-
+public void runBagIn(double speed){
+RightBag.set(speed);
+LeftBag.set(speed);
+}
 
 
 public void intakeBagMotors(){

@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -15,18 +16,21 @@ public class Claw extends SubsystemBase{
     }
 
     public void initialize() {
+
     Arm = new WPI_TalonFX(Constants.Arm_CAN_ID);
     Grab = new WPI_TalonFX(Constants.Grab_CAN_ID);
     Pivot = new WPI_TalonSRX(Constants.Pivot_CAN_ID);
+    Pivot.setNeutralMode(NeutralMode.Brake);
+    Arm.setNeutralMode(NeutralMode.Brake);
 }
 
 public void runPivot(){
 
-Pivot.set(0.3);
+Pivot.set(0.5);
 
 }
 public void runPivotDown(){
-Pivot.set(-0.3);
+Pivot.set(-0.5);
 
 }
 public void stopPivot(){
@@ -36,11 +40,11 @@ Pivot.set(0);
 }
 
 public void runArmOut(){
-Arm.set(.3);
+Arm.set(.65);
 
 }
 public void runArmIn(){
-Arm.set(-0.3);
+Arm.set(-0.45);
 
 }
 public void stopArm(){
@@ -48,12 +52,12 @@ Arm.set(0);
 }
 
 public void closeClaw(){
-Grab.set(.6);
+Grab.set(.9);
 
 }
 
 public void openClaw(){
-Grab.set(-.6);
+Grab.set(-.9);
 
 }
 public void stopClaw(){

@@ -5,35 +5,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 
-public class Grab extends CommandBase {
-  /** Creates a new Grab. */
-  public Grab() {
-    addRequirements(RobotContainer.mIntake);
+public class IntakeSpinIn extends CommandBase {
+  /** Creates a new IntakeSpinIn. */
+  public IntakeSpinIn() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
+  public void initialize() {RobotContainer.mIntake.runBagIn(.5);}
 
-  }
-  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    RobotContainer.mIntake.grab();
-    
-    
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    RobotContainer.mIntake.stopBag();
-  }
+  public void end(boolean interrupted) {RobotContainer.mIntake.stopBag();}
 
   // Returns true when the command should end.
   @Override

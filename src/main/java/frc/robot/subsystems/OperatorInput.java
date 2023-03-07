@@ -11,7 +11,7 @@ public class OperatorInput {
     static boolean chargeStationMode = Robot.chargeMode;
     
     
-   public static Joystick Joystick = new Joystick(Constants.OperatorConstants.JOYSTICK_ID);
+   public static Joystick Joystick = new Joystick(Constants.OperatorConstants.RIGHTJOYSTICK_ID);
    
    
         public static double getX() {
@@ -26,7 +26,7 @@ public class OperatorInput {
         public static double getRot(){
           if(chargeStationMode)
           {return 0;}
-          return ScaleInputs.scaleInputs(Joystick.getZ(), .3, .1, 4);
+          return ScaleInputs.scaleInputs(Joystick.getZ(), .2, .1, 4);
         }
         
         

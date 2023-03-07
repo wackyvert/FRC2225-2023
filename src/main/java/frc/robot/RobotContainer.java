@@ -12,9 +12,14 @@ import frc.robot.commands.ChargeSwitch;
 import frc.robot.commands.CloseClaw;
 
 import frc.robot.commands.Grab;
+import frc.robot.commands.IntakeSpin;
+import frc.robot.commands.IntakeSpinIn;
 import frc.robot.commands.OpenClaw;
+import frc.robot.commands.RaiseIntake;
+import frc.robot.commands.StopDrop;
 import frc.robot.commands.TurnPivot;
 import frc.robot.commands.TurnPivotDown;
+import frc.robot.commands.dropIntake;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 
@@ -25,6 +30,8 @@ import org.opencv.osgi.OpenCVNativeLoader;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -43,17 +50,19 @@ public class RobotContainer {
   public static final Intake mIntake = new Intake();
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  Joystick joystick = new Joystick(Constants.OperatorConstants.JOYSTICK_ID);
-  Trigger button14 = new JoystickButton(joystick, 14);
-  Trigger button13 = new JoystickButton(joystick, 13);
-  Trigger button2 = new JoystickButton(joystick, 2);
-  Trigger button3 = new JoystickButton(joystick, 3);
-  Trigger button4 = new JoystickButton(joystick, 4);
-  Trigger button1 = new JoystickButton(joystick, 1);
-  Trigger button5 = new JoystickButton(joystick, 5);
-  Trigger button6 = new JoystickButton(joystick, 6);
-
-
+  Joystick rightjoystick = new Joystick(Constants.OperatorConstants.RIGHTJOYSTICK_ID);
+  Joystick leftjoystick = new Joystick(Constants.OperatorConstants.LEFTJOYSTICK_ID);
+  Trigger button1 = new JoystickButton(leftjoystick, 1);
+  Trigger button2 = new JoystickButton(leftjoystick, 2);
+  Trigger button3 = new JoystickButton(leftjoystick, 3);
+  Trigger button4 = new JoystickButton(leftjoystick, 4);
+  Trigger button5 = new JoystickButton(leftjoystick, 5);
+  Trigger button6 = new JoystickButton(leftjoystick, 6);
+  Trigger button11 = new JoystickButton(rightjoystick, 11);
+  Trigger button12 = new JoystickButton(rightjoystick, 12);
+  Trigger button14 = new JoystickButton(rightjoystick, 14);
+  Trigger button13 = new JoystickButton(rightjoystick, 13);
+ 
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -74,13 +83,18 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     button14.onTrue(new ChargeSwitch());
-    button13.onTrue(new Grab());
+    
     button2.whileTrue(new CloseClaw());
     button1.whileTrue(new OpenClaw());
     button3.whileTrue(new ArmOut());
     button4.whileTrue(new ArmIn());
     button5.whileTrue(new TurnPivotDown());
     button6.whileTrue(new TurnPivot());
+    button11.onTrue(new SequentialCommandGroup(new dropIntake(), new WaitCommand(.27), new StopDrop()));
+    button12.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
+    button13.whileTrue(new IntakeSpin());
+    button14.whileTrue(new IntakeSpinIn());
+    
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     

@@ -28,7 +28,7 @@ public class Drivetrain extends SubsystemBase {
     public Encoder flEncoder, frEncoder, blEncoder, brEncoder;
     private MotorControllerGroup leftMotorControllerGroup, rightMotorControllerGroup;
     private DifferentialDrive robotDrive;
-    public DifferentialDriveOdometry robotDriveOdometry;
+    //public DifferentialDriveOdometry robotDriveOdometry;
     public ADXRS450_Gyro gyro;
     public ADIS16470_IMU IMU;
    // public PhotonCamera camera = new PhotonCamera("photonVision");
@@ -63,8 +63,8 @@ public class Drivetrain extends SubsystemBase {
 
         resetEncoders();
 
-        robotDriveOdometry = new DifferentialDriveOdometry(gyro.getRotation2d(), getLeftEncoder(),
-                getRightEncoder());
+        //robotDriveOdometry = new DifferentialDriveOdometry(gyro.getRotation2d(), getLeftEncoder(),
+               // getRightEncoder());
 
     }
 
@@ -127,7 +127,8 @@ public class Drivetrain extends SubsystemBase {
         return avg;
     }
     public Pose2d getPose() {
-            return robotDriveOdometry.getPoseMeters();
+        return null;    
+        //return robotDriveOdometry.getPoseMeters();
           }
 
     public void resetEncoders() {
@@ -139,8 +140,8 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetOdometry(Pose2d pose) {
         resetEncoders();
-        robotDriveOdometry.resetPosition(
-                gyro.getRotation2d(), getLeftEncoder(), getRightEncoder(), pose);
+       // robotDriveOdometry.resetPosition(
+          //      gyro.getRotation2d(), getLeftEncoder(), getRightEncoder(), pose);
     }
 
     public void arcadeDrive(double speed, double turn) {
@@ -161,7 +162,7 @@ public class Drivetrain extends SubsystemBase {
           }
     @Override
     public void periodic(){
-        robotDriveOdometry.update(gyro.getRotation2d(), 0, 0);
+        //robotDriveOdometry.update(gyro.getRotation2d(), 0, 0);
             SmartDashboard.putNumber("Encoder", BL_drive.getSelectedSensorPosition());
     }
     public PIDController chargeStationPID;
