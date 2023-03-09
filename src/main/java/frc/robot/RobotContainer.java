@@ -5,6 +5,9 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.OperatorConstants.AutoConstants;
+import frc.robot.Constants.OperatorConstants.DriveConstants;
+import frc.robot.Constants.*;
 import frc.robot.commands.ArmIn;
 import frc.robot.commands.ArmOut;
 
@@ -28,8 +31,15 @@ import frc.robot.subsystems.OperatorInput;
 
 import org.opencv.osgi.OpenCVNativeLoader;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -62,7 +72,7 @@ public class RobotContainer {
   Trigger button12 = new JoystickButton(rightjoystick, 12);
   Trigger button14 = new JoystickButton(rightjoystick, 14);
   Trigger button13 = new JoystickButton(rightjoystick, 13);
- 
+  Trigger y = new Trigger(leftjoystick.axisGreaterThan(1, .5, null));
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -105,8 +115,42 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(Trajectory chosenTrajectory) {
+    
     // An example command will be run in autonomous
-    return null;
+    var autoVoltageConstraint =
+           new DifferentialDriveVoltageConstraint(
+               new SimpleMotorFeedforward(
+                    DriveConstants.ksVolts,
+                   DriveConstants.kvVoltSecondsPerMeter,
+                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+               DriveConstants.kDriveKinematics,
+           10);
+    
+       
+      
+
+              RamseteCommand ramseteCommand =
+                      new RamseteCommand(
+                          chosenTrajectory,
+                          mDrivetrain::getPose,
+                        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+                          new SimpleMotorFeedforward(
+                              DriveConstants.ksVolts,
+                             DriveConstants.kvVoltSecondsPerMeter,
+                             DriveConstants.kaVoltSecondsSquaredPerMeter),
+                          DriveConstants.kDriveKinematics,
+                          mDrivetrain::getWheelSpeeds,
+                          new PIDController(DriveConstants.kPDriveVel, 0, 0),
+                          new PIDController(DriveConstants.kPDriveVel, 0, 0),
+                          // RamseteCommand passes volts to the callback
+                          mDrivetrain::tankDriveVolts,
+                          mDrivetrain);
+              
+                  // Reset odometry to the starting pose of the trajectory.
+                mDrivetrain.resetOdometry(chosenTrajectory.getInitialPose());
+              
+                  // Run path following command, then stop at the end.
+                  return ramseteCommand.andThen(() -> mDrivetrain.tankDriveVolts(0, 0));
   }
 }
