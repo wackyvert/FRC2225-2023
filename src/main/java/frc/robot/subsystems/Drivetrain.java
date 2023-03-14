@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 
+import org.photonvision.PhotonCamera;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -31,9 +33,11 @@ public class Drivetrain extends SubsystemBase {
     public DifferentialDriveOdometry robotDriveOdometry;
     public ADXRS450_Gyro gyro;
     public ADIS16470_IMU IMU;
-   // public PhotonCamera camera = new PhotonCamera("photonVision");
+    public PIDController turnController = new PIDController(0.15, 0, 0);
+    public PhotonCamera camera = new PhotonCamera("photonVision");
     //public PhotonPipelineResult result;
-
+    double visionRotationSpeed;
+    double visionForwardSpeed;
     public Drivetrain() {
         initialize();
     }
@@ -77,7 +81,18 @@ public class Drivetrain extends SubsystemBase {
     public double getLeftEncoderSpeed() {
         return getEncoderSideSpeed(BL_drive, FL_drive);
     }
+    public void VisionAlign(){
+        var result = camera.getLatestResult();
 
+            if (result.hasTargets()) {
+                // Calculate angular turn power
+                // -1.0 required to ensure positive PID controller effort _increases_ yaw
+                visionRotationSpeed = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+            } else {
+               // If we have no targets, stay still.
+               visionRotationSpeed = 0;
+            }
+    }
 
     public double getRightEncoderSpeed() {
         return getEncoderSideSpeed(BR_drive, FR_drive);
@@ -163,7 +178,7 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic(){
         robotDriveOdometry.update(gyro.getRotation2d(), 0, 0);
-            SmartDashboard.putNumber("Encoder", BL_drive.getSelectedSensorPosition());
+            //SmartDashboard.putNumber("Encoder", BL_drive.getSelectedSensorPosition());
     }
     public PIDController chargeStationPID;
     double pitchAxis = 0;
