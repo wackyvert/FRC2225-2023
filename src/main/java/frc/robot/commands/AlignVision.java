@@ -7,13 +7,21 @@ package frc.robot.commands;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /** An example command that uses an example subsystem. */
 public class AlignVision extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain m_subsystem;
-
+  PhotonCamera camera = new PhotonCamera("OV5647");
+  double visionRotationSpeed;
+  PIDController turnController = new PIDController(.10,0,0);
   /**
    * Creates a new ExampleCommand.
    *
@@ -27,18 +35,32 @@ public class AlignVision extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    CommandScheduler.getInstance().getDefaultCommand(RobotContainer.mDrivetrain).cancel();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  RobotContainer.mDrivetrain.VisionAlign();
+    var result = camera.getLatestResult();
+
+    if (result.hasTargets()) {
+        // Calculate angular turn power
+        // -1.0 required to ensure positive PID controller effort _increases_ yaw
+        visionRotationSpeed = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+    } else {
+       // If we have no targets, stay still.
+       visionRotationSpeed = 0;
+    } 
+    DriverStation.reportWarning("Speed = "+visionRotationSpeed, true);
+    RobotContainer.mDrivetrain.arcadeDrive(0, visionRotationSpeed/2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.mDrivetrain.stopAll();
+    //RobotContainer.mDrivetrain.stopAll();
+    CommandScheduler.getInstance().setDefaultCommand(RobotContainer.mDrivetrain, new ArcadeDrive());
   }
 
   // Returns true when the command should end.

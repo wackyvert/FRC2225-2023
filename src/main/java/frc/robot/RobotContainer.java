@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.OperatorConstants.AutoConstants;
 import frc.robot.Constants.OperatorConstants.DriveConstants;
 import frc.robot.Constants.*;
+import frc.robot.commands.AlignVision;
 import frc.robot.commands.ArmIn;
 import frc.robot.commands.ArmOut;
 
@@ -29,13 +30,19 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OperatorInput;
 
+import java.util.List;
+
 import org.opencv.osgi.OpenCVNativeLoader;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -72,7 +79,7 @@ public class RobotContainer {
   Trigger button12 = new JoystickButton(rightjoystick, 12);
   Trigger button14 = new JoystickButton(rightjoystick, 14);
   Trigger button13 = new JoystickButton(rightjoystick, 13);
-  Trigger y = new Trigger(leftjoystick.axisGreaterThan(1, .5, null));
+  //Trigger y = new Trigger(leftjoystick.axisGreaterThan(1, .5, null));
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -92,7 +99,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    button14.onTrue(new ChargeSwitch());
+    button14.whileTrue(new AlignVision(mDrivetrain));
     
     button2.whileTrue(new CloseClaw());
     button1.whileTrue(new OpenClaw());
@@ -103,7 +110,7 @@ public class RobotContainer {
     button11.onTrue(new SequentialCommandGroup(new dropIntake(), new WaitCommand(.27), new StopDrop()));
     button12.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
     button13.whileTrue(new IntakeSpin());
-    button14.whileTrue(new IntakeSpinIn());
+    //button14.whileTrue(new IntakeSpinIn());
     
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
@@ -126,7 +133,28 @@ public class RobotContainer {
                    DriveConstants.kaVoltSecondsSquaredPerMeter),
                DriveConstants.kDriveKinematics,
            10);
-    
+
+           TrajectoryConfig config =
+           new TrajectoryConfig(
+                   DriveConstants.kMaxSpeedMetersPerSecond,
+                   DriveConstants.kMaxAccelerationMetersPerSecondSquared)
+               // Add kinematics to ensure max speed is actually obeyed
+               .setKinematics(DriveConstants.kDriveKinematics)
+               // Apply the voltage constraint
+               .addConstraint(autoVoltageConstraint);
+   
+       // An example trajectory to follow.  All units in meters.
+       Trajectory exampleTrajectory =
+           TrajectoryGenerator.generateTrajectory(
+               // Start at the origin facing the +X direction
+               new Pose2d(0, 0, new Rotation2d(0)),
+               // Pass through these two interior waypoints, making an 's' curve path
+               List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+               // End 3 meters straight ahead of where we started, facing forward
+               new Pose2d(3, 0, new Rotation2d(0)),
+               // Pass config
+               config);
+    chosenTrajectory=exampleTrajectory;
        
       
 

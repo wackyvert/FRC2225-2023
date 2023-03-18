@@ -23,7 +23,7 @@ public class ArcadeDrive extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getY()), ScaleInputs.scaleInputs(OperatorInput.getRot(), .35, .15, .7)*.4, ScaleInputs.scaleInputs(OperatorInput.getX(),.3,.15,2));}
+  public void execute() {RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getY()), ScaleInputs.scaleInputs(OperatorInput.getRot(), .35, .15, .7)*.7, ScaleInputs.scaleInputs(OperatorInput.getX(),.3,.15,2));}
     
   // Called once the command ends or is interrupted.
   @Override

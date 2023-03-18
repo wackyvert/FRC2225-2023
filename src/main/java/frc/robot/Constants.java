@@ -30,20 +30,20 @@ public final class Constants {
 
   public static class OperatorConstants {
     public static final int LEFTJOYSTICK_ID = 0;
-    public static final int RIGHTJOYSTICK_ID=1;
+    public static final int RIGHTJOYSTICK_ID=0;
   
   public static class DriveConstants{
-    public static final int kaVoltSecondsSquaredPerMeter=0;
-    public static final int kMaxAccelerationMetersPerSecondSquared=0;
-    public static final int kMaxSpeedMetersPerSecond = 0;
-    public static final int kvVoltSecondsPerMeter = 0;
-    public static final int ksVolts = 0;
-    public static final int kPDriveVel=0;
+    public static final double kaVoltSecondsSquaredPerMeter=.54701;
+    public static final double kMaxAccelerationMetersPerSecondSquared=1;
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kvVoltSecondsPerMeter = 1.3265;
+    public static final double ksVolts = 0.29285;
+    public static final double kPDriveVel=1.9821;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(.6);
   }
   public static class AutoConstants{
-    public static final int kRamseteB=0;
-    public static final int kRamseteZeta=0;
+    public static final double kRamseteB=2;
+    public static final double kRamseteZeta=0.7;
   }
     
     

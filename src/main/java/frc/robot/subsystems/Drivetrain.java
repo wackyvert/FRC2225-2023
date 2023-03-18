@@ -11,6 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -33,8 +34,8 @@ public class Drivetrain extends SubsystemBase {
     public DifferentialDriveOdometry robotDriveOdometry;
     public ADXRS450_Gyro gyro;
     public ADIS16470_IMU IMU;
-    public PIDController turnController = new PIDController(0.15, 0, 0);
-    public PhotonCamera camera = new PhotonCamera("photonVision");
+    public PIDController turnController = new PIDController(0.45, 0, 0);
+    public PhotonCamera camera = new PhotonCamera("OV5647");
     //public PhotonPipelineResult result;
     double visionRotationSpeed;
     double visionForwardSpeed;
@@ -82,16 +83,7 @@ public class Drivetrain extends SubsystemBase {
         return getEncoderSideSpeed(BL_drive, FL_drive);
     }
     public void VisionAlign(){
-        var result = camera.getLatestResult();
-
-            if (result.hasTargets()) {
-                // Calculate angular turn power
-                // -1.0 required to ensure positive PID controller effort _increases_ yaw
-                visionRotationSpeed = -turnController.calculate(result.getBestTarget().getYaw(), 0);
-            } else {
-               // If we have no targets, stay still.
-               visionRotationSpeed = 0;
-            }
+        
     }
 
     public double getRightEncoderSpeed() {
@@ -109,7 +101,7 @@ public class Drivetrain extends SubsystemBase {
 
     public double ticksToMeter(double encoder) {
         //TODO: Change this once chassis finished
-        double whd = 0;
+        double whd = Units.inchesToMeters(6);
         return (double) (encoder) * ((whd * Math.PI) / (/* TalonFX CPR */2048));
     }
 
@@ -120,7 +112,7 @@ public class Drivetrain extends SubsystemBase {
     // Check here for troubleshooting its possible this value is not correct and
     // needs to be inversed
     public double getTurnRate() {
-        return -gyro.getRate();
+        return gyro.getRate();
     }
     public void stopAll(){
         leftMotorControllerGroup.set(0);
@@ -131,6 +123,9 @@ public class Drivetrain extends SubsystemBase {
         leftMotorControllerGroup.setVoltage(leftVolts);
         rightMotorControllerGroup.setVoltage(rightVolts);
         robotDrive.feed();
+        Encoder enc = new Encoder(null, null);
+        
+
     }
         //make sure avg is plausible
     public double averageEncoders(WPI_TalonFX m1, WPI_TalonFX m2) {
