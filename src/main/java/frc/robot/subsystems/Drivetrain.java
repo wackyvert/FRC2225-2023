@@ -101,8 +101,8 @@ public class Drivetrain extends SubsystemBase {
 
     public double ticksToMeter(double encoder) {
         //TODO: Change this once chassis finished
-        double whd = Units.inchesToMeters(6);
-        return (double) (encoder) * ((whd * Math.PI) / (/* TalonFX CPR */2048));
+        double whd = Units.inchesToMeters(6);//2048 talon fx cpr 
+        return (double) ((encoder/2048) * (.1666*(whd * Math.PI))) ;
     }
 
     public double getHeading() {
@@ -123,7 +123,6 @@ public class Drivetrain extends SubsystemBase {
         leftMotorControllerGroup.setVoltage(leftVolts);
         rightMotorControllerGroup.setVoltage(rightVolts);
         robotDrive.feed();
-        Encoder enc = new Encoder(null, null);
         
 
     }

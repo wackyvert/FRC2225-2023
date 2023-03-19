@@ -7,9 +7,10 @@ import frc.robot.RobotContainer;
 import frc.robot.ScaleInputs;
 
 public class ArcadeDrive extends CommandBase {
-  
+  boolean xbox = false;
   /** Creates a new ArcadeDrive. */
   public ArcadeDrive() {
+   
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.mDrivetrain);
     
@@ -23,7 +24,14 @@ public class ArcadeDrive extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getY()), ScaleInputs.scaleInputs(OperatorInput.getRot(), .35, .15, .7)*.7, ScaleInputs.scaleInputs(OperatorInput.getX(),.3,.15,2));}
+  public void execute() {
+if (!xbox) {
+    RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getY()), ScaleInputs.scaleInputs(OperatorInput.getRot(), .35, .15, .7)*.7, ScaleInputs.scaleInputs(OperatorInput.getX(),.3,.15,2));
+  }
+  else{
+    RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getcontrollerY()), ScaleInputs.scaleInputs(OperatorInput.getcontrollerRot())*.7, ScaleInputs.scaleInputs(OperatorInput.getcontrollerX()));
+  }
+}
     
   // Called once the command ends or is interrupted.
   @Override

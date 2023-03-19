@@ -31,6 +31,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int LEFTJOYSTICK_ID = 0;
     public static final int RIGHTJOYSTICK_ID=0;
+    public static final int XBOX_CONTROLLER_ID = 0;
   
   public static class DriveConstants{
     public static final double kaVoltSecondsSquaredPerMeter=.54701;
