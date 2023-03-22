@@ -22,7 +22,7 @@ public void initialize(){
   RightBag = new WPI_TalonSRX(Constants.RightBag_CAN_ID);
   LeftBag = new WPI_TalonSRX(Constants.LeftBag_CAN_ID);
   RightSb = new WPI_VictorSPX(Constants.RightSb_CAN_ID);
-  LeftSb = new WPI_VictorSPX(Constants.LeftSb_CAN_ID);
+  LeftSb = new WPI_VictorSPX(5);
   LeftSb.setInverted(true);
   LeftBag.setInverted(true);
 

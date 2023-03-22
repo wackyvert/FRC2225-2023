@@ -5,18 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DropIntake extends InstantCommand {
-  public DropIntake() {
+public class RaiseBreaks extends InstantCommand {
+  public RaiseBreaks() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.mIntake.runSb(.5);
+    RobotContainer.mDrivetrain.raiseBreaks();
   }
 }

@@ -3,7 +3,9 @@ package frc.robot.subsystems;
 
 import org.photonvision.PhotonCamera;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -27,6 +29,7 @@ import frc.robot.Constants;
 public class Drivetrain extends SubsystemBase {
 
     public WPI_TalonFX FL_drive, FR_drive, BL_drive, BR_drive;
+    public WPI_VictorSPX L_Brake, R_Brake;
     public CANSparkMax H_drive;
     public Encoder flEncoder, frEncoder, blEncoder, brEncoder;
     private MotorControllerGroup leftMotorControllerGroup, rightMotorControllerGroup;
@@ -57,6 +60,12 @@ public class Drivetrain extends SubsystemBase {
 
         BR_drive = new WPI_TalonFX(Constants.BR_CAN_ID);
 
+        L_Brake = new WPI_VictorSPX(Constants.L_BRAKE_CAN_ID);
+        
+        R_Brake = new WPI_VictorSPX(Constants.R_BRAKE_CAN_ID);
+        R_Brake.setNeutralMode(NeutralMode.Brake);
+        L_Brake.setNeutralMode(NeutralMode.Brake);
+
         leftMotorControllerGroup = new MotorControllerGroup(FL_drive, BL_drive);
 
         rightMotorControllerGroup = new MotorControllerGroup(FR_drive, BR_drive);
@@ -84,6 +93,14 @@ public class Drivetrain extends SubsystemBase {
     }
     public void VisionAlign(){
         
+    }
+    public void dropBreaks(){
+        L_Brake.set(.24);
+        R_Brake.set(.24);
+    }
+    public void raiseBreaks(){
+        L_Brake.set(.24);
+        R_Brake.set(.24);
     }
 
     public double getRightEncoderSpeed() {

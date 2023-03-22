@@ -25,10 +25,10 @@ public class OperatorInput {
           return ScaleInputs.scaleInputs(xboxController.getRawAxis(0));
         }
         public static double getcontrollerY() { //should be left stick vertical axis
-          return ScaleInputs.scaleInputs(xboxController.getRawAxis(3));
+          return ScaleInputs.scaleInputs(xboxController.getRawAxis(1));
         }
         public static double getcontrollerRot() { //should be right stick horizontal axis
-          return ScaleInputs.scaleInputs(xboxController.getRawAxis(2));
+          return ScaleInputs.scaleInputs(xboxController.getRawAxis(4));
         }
         public static double getY() {
           return ScaleInputs.scaleInputs(joystick.getY());

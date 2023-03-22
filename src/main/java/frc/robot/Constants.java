@@ -24,14 +24,20 @@ public final class Constants {
     public static final int Grab_CAN_ID = 7;
     public static final int Pivot_CAN_ID = 6;
     public static final int RightSb_CAN_ID = 10;
-    public static final int LeftSb_CAN_ID = 9;
+    public static final int LeftSb_CAN_ID = 5;
     public static final int RightBag_CAN_ID = 11;
     public static final int LeftBag_CAN_ID = 12;
+    public static final double armkS=.14221;
+    public static final double armkA=.45488;
+    public static final double armkV=9.7735;
+    public static final double armkG=.2783;
+    public static final int L_BRAKE_CAN_ID = 0;
+    public static final int R_BRAKE_CAN_ID = 0;
 
   public static class OperatorConstants {
     public static final int LEFTJOYSTICK_ID = 0;
     public static final int RIGHTJOYSTICK_ID=0;
-    public static final int XBOX_CONTROLLER_ID = 0;
+    public static final int XBOX_CONTROLLER_ID = 2;
   
   public static class DriveConstants{
     public static final double kaVoltSecondsSquaredPerMeter=.54701;

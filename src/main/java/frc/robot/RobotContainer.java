@@ -15,7 +15,7 @@ import frc.robot.commands.ArmOut;
 
 import frc.robot.commands.ChargeSwitch;
 import frc.robot.commands.CloseClaw;
-
+import frc.robot.commands.DropIntake;
 import frc.robot.commands.Grab;
 import frc.robot.commands.IntakeSpin;
 import frc.robot.commands.IntakeSpinIn;
@@ -25,7 +25,8 @@ import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.StopDrop;
 import frc.robot.commands.TurnPivot;
 import frc.robot.commands.TurnPivotDown;
-import frc.robot.commands.dropIntake;
+
+import frc.robot.commands.pivotPosition;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 
@@ -88,6 +89,7 @@ public class RobotContainer {
   Trigger button12 = new JoystickButton(rightjoystick, 12);
   Trigger button14 = new JoystickButton(rightjoystick, 14);
   Trigger button13 = new JoystickButton(rightjoystick, 13);
+  Trigger button16 = new JoystickButton(rightjoystick, 16);
   Trigger secondButton1 = new JoystickButton(leftjoystick, 1);
   Trigger secondButton2 = new JoystickButton(leftjoystick, 2);
   Trigger secondButton3 = new JoystickButton(leftjoystick, 3);
@@ -140,9 +142,10 @@ public class RobotContainer {
     button4.whileTrue(new ArmIn());
     button5.whileTrue(new TurnPivotDown());
     button6.whileTrue(new TurnPivot());
-    button11.onTrue(new SequentialCommandGroup(new dropIntake(), new WaitCommand(.27), new StopDrop()));
+    button11.onTrue(new SequentialCommandGroup(new DropIntake(), new WaitCommand(.27), new StopDrop()));
     button12.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
     button13.whileTrue(new IntakeSpin());
+    button16.onTrue(new pivotPosition());
     secondButton1.onTrue(new InstantCommand(()->{
       povControl^=true;
       if(povControl) {
@@ -152,6 +155,8 @@ public class RobotContainer {
       mDrivetrain.setDefaultCommand(new ArcadeDrive());
     }
   }));
+
+  //Xbox bindings
     buttonA.whileTrue(new CloseClaw());
     buttonB.whileTrue(new OpenClaw());
     rightBumper.whileTrue(new ArmOut());
