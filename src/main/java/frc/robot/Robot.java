@@ -101,8 +101,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
-    SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());
+    //SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
+    //SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());
     
 }
 

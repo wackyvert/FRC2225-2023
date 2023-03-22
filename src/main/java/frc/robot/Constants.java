@@ -31,11 +31,11 @@ public final class Constants {
     public static final double armkA=.45488;
     public static final double armkV=9.7735;
     public static final double armkG=.2783;
-    public static final int L_BRAKE_CAN_ID = 0;
-    public static final int R_BRAKE_CAN_ID = 0;
+    public static final int L_BRAKE_CAN_ID = LeftSb_CAN_ID;
+    public static final int R_BRAKE_CAN_ID = RightSb_CAN_ID;
 
   public static class OperatorConstants {
-    public static final int LEFTJOYSTICK_ID = 0;
+    public static final int LEFTJOYSTICK_ID = 1;
     public static final int RIGHTJOYSTICK_ID=0;
     public static final int XBOX_CONTROLLER_ID = 2;
   

@@ -5,14 +5,15 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class Intake extends SubsystemBase{
     public WPI_TalonSRX RightBag;
     public WPI_TalonSRX LeftBag;
-    public WPI_VictorSPX RightSb;
-    public WPI_VictorSPX LeftSb;
+    public Spark RightSb;
+    public Spark LeftSb;
     private MotorControllerGroup MoveIntakeGroup, SpinIntakeGroup;
   public Intake(){
      initialize();
@@ -21,8 +22,9 @@ public void initialize(){
 
   RightBag = new WPI_TalonSRX(Constants.RightBag_CAN_ID);
   LeftBag = new WPI_TalonSRX(Constants.LeftBag_CAN_ID);
-  RightSb = new WPI_VictorSPX(Constants.RightSb_CAN_ID);
-  LeftSb = new WPI_VictorSPX(5);
+  RightSb = new Spark(1);
+  LeftSb = new Spark(2);
+  //RightSb.
   LeftSb.setInverted(true);
   LeftBag.setInverted(true);
 

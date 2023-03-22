@@ -15,13 +15,16 @@ import frc.robot.commands.ArmOut;
 
 import frc.robot.commands.ChargeSwitch;
 import frc.robot.commands.CloseClaw;
+import frc.robot.commands.DropBreaks;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.Grab;
 import frc.robot.commands.IntakeSpin;
 import frc.robot.commands.IntakeSpinIn;
 import frc.robot.commands.OpenClaw;
 import frc.robot.commands.POVDrive;
+import frc.robot.commands.RaiseBreaks;
 import frc.robot.commands.RaiseIntake;
+import frc.robot.commands.StopBreaks;
 import frc.robot.commands.StopDrop;
 import frc.robot.commands.TurnPivot;
 import frc.robot.commands.TurnPivotDown;
@@ -79,16 +82,17 @@ public class RobotContainer {
   Joystick rightjoystick = new Joystick(Constants.OperatorConstants.RIGHTJOYSTICK_ID);
   Joystick leftjoystick = new Joystick(Constants.OperatorConstants.LEFTJOYSTICK_ID);
   XboxController xboxController = new XboxController(Constants.OperatorConstants.XBOX_CONTROLLER_ID);
-  Trigger button1 = new JoystickButton(leftjoystick, 1);
-  Trigger button2 = new JoystickButton(leftjoystick, 2);
-  Trigger button3 = new JoystickButton(leftjoystick, 3);
-  Trigger button4 = new JoystickButton(leftjoystick, 4);
-  Trigger button5 = new JoystickButton(leftjoystick, 5);
-  Trigger button6 = new JoystickButton(leftjoystick, 6);
+  Trigger button1 = new JoystickButton(rightjoystick, 1);
+  Trigger button2 = new JoystickButton(rightjoystick, 2);
+  Trigger button3 = new JoystickButton(rightjoystick, 3);
+  Trigger button4 = new JoystickButton(rightjoystick, 4);
+  Trigger button5 = new JoystickButton(rightjoystick, 5);
+  Trigger button6 = new JoystickButton(rightjoystick, 6);
   Trigger button11 = new JoystickButton(rightjoystick, 11);
   Trigger button12 = new JoystickButton(rightjoystick, 12);
   Trigger button14 = new JoystickButton(rightjoystick, 14);
   Trigger button13 = new JoystickButton(rightjoystick, 13);
+  Trigger button15 = new JoystickButton(rightjoystick, 15);
   Trigger button16 = new JoystickButton(rightjoystick, 16);
   Trigger secondButton1 = new JoystickButton(leftjoystick, 1);
   Trigger secondButton2 = new JoystickButton(leftjoystick, 2);
@@ -145,16 +149,10 @@ public class RobotContainer {
     button11.onTrue(new SequentialCommandGroup(new DropIntake(), new WaitCommand(.27), new StopDrop()));
     button12.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
     button13.whileTrue(new IntakeSpin());
+    button14.onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(3.6), new StopBreaks()));
+    button15.onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(3.6), new StopBreaks()));
     button16.onTrue(new pivotPosition());
-    secondButton1.onTrue(new InstantCommand(()->{
-      povControl^=true;
-      if(povControl) {
-      mDrivetrain.setDefaultCommand(new POVDrive());
-    }
-    else{
-      mDrivetrain.setDefaultCommand(new ArcadeDrive());
-    }
-  }));
+    secondButton1.whileTrue(new POVDrive());
 
   //Xbox bindings
     buttonA.whileTrue(new CloseClaw());

@@ -10,14 +10,12 @@ import frc.robot.RobotContainer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DropIntake extends InstantCommand {
-  public DropIntake() {
+public class StopBreaks extends InstantCommand {
+  public StopBreaks() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    RobotContainer.mIntake.runSb(.5);
-  }
+  public void initialize() {RobotContainer.mDrivetrain.stopBreaks();}
 }
