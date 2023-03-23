@@ -17,6 +17,7 @@ import frc.robot.commands.drivetrain.RaiseBreaks;
 import frc.robot.commands.drivetrain.StopBreaks;
 import frc.robot.commands.intake.DropIntake;
 import frc.robot.commands.intake.IntakeSpin;
+import frc.robot.commands.intake.IntakeSpinIn;
 import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.intake.StopDrop;
 import frc.robot.commands.pivot.TurnPivot;
@@ -126,19 +127,20 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     button14.whileTrue(new AlignVision(mDrivetrain));
-    button2.whileTrue(new CloseClaw());
-    button1.whileTrue(new OpenClaw());
-    button3.whileTrue(new ArmOut());
-    button4.whileTrue(new ArmIn());
-    button5.whileTrue(new TurnPivotDown());
-    button6.whileTrue(new TurnPivot());
-    button11.onTrue(new SequentialCommandGroup(new DropIntake(), new WaitCommand(.27), new StopDrop()));
-    button12.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
-    button13.whileTrue(new IntakeSpin());
-    button14.onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(3.6), new StopBreaks()));
-    button15.onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(3.6), new StopBreaks()));
+    secondButton3.whileTrue(new CloseClaw());
+    secondButton4.whileTrue(new OpenClaw());
+    secondButton1.whileTrue(new ArmOut());
+    secondButton2.whileTrue(new ArmIn());
+    secondButton11.whileTrue(new TurnPivotDown());
+    secondButton12.whileTrue(new TurnPivot());
+    button3.onTrue(new SequentialCommandGroup(new DropIntake(), new WaitCommand(.27), new StopDrop()));
+    button4.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
+    button2.whileTrue(new IntakeSpin());
+    button1.whileTrue(new IntakeSpinIn());
+    button11.onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(3.6), new StopBreaks()));
+    button12.onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(3.6), new StopBreaks()));
     button16.onTrue(new pivotPosition());
-    secondButton1.whileTrue(new POVDrive());
+    secondButton14.whileTrue(new POVDrive());
 
   //Xbox bindings
     buttonA.whileTrue(new CloseClaw());
