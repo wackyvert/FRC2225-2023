@@ -11,10 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.SimpleAuto;
-import frc.robot.commands.SimpleBack;
-import frc.robot.commands.ZeroPivot;
+import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.commands.pivot.ZeroPivot;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -39,8 +37,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     autoChooser= new SendableChooser<>();
-    autoChooser.addOption("Simple Forward", new SimpleAuto());
-    autoChooser.addOption("Simple Back", new SimpleBack());
     autoChooser.addOption("None", null);
     CameraServer.startAutomaticCapture();
     
@@ -103,6 +99,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     //SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
     //SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());
+    SmartDashboard.putBoolean("Landing Gear", chargeMode);
     
 }
 

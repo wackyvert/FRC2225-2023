@@ -2,15 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class TurnPivot extends CommandBase {
-  /** Creates a new TurnPivot. */
-  public TurnPivot() {
-    addRequirements(RobotContainer.m_Claw);// Use addRequirements() here to declare subsystem dependencies.
+public class ArmOut extends CommandBase {
+  /** Creates a new ArmOut. */
+  public ArmOut() {
+    addRequirements(RobotContainer.m_Claw);
   }
 
   // Called when the command is initially scheduled.
@@ -20,14 +20,13 @@ public class TurnPivot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_Claw.runPivot();
-    
+    RobotContainer.m_Claw.runArmOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.m_Claw.stopPivot();
+    RobotContainer.m_Claw.stopArm();
   }
 
   // Returns true when the command should end.
