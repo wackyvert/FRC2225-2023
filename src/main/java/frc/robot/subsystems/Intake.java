@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -14,7 +12,7 @@ public class Intake extends SubsystemBase{
     public WPI_TalonSRX LeftBag;
     public Spark RightSb;
     public Spark LeftSb;
-    private MotorControllerGroup MoveIntakeGroup, SpinIntakeGroup;
+  
   public Intake(){
      initialize();
   }
@@ -28,8 +26,6 @@ public void initialize(){
   LeftSb.setInverted(true);
   LeftBag.setInverted(true);
 
-MoveIntakeGroup = new MotorControllerGroup(LeftSb,RightSb);
-SpinIntakeGroup = new MotorControllerGroup(LeftBag,RightBag);
 
 }
 public void stopSb(){

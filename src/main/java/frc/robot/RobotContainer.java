@@ -4,23 +4,19 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.OperatorConstants.AutoConstants;
 import frc.robot.Constants.OperatorConstants.DriveConstants;
-import frc.robot.Constants.*;
 import frc.robot.commands.arm.ArmIn;
 import frc.robot.commands.arm.ArmOut;
 import frc.robot.commands.claw.CloseClaw;
 import frc.robot.commands.claw.OpenClaw;
 import frc.robot.commands.drivetrain.AlignVision;
-import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.DropBreaks;
 import frc.robot.commands.drivetrain.POVDrive;
 import frc.robot.commands.drivetrain.RaiseBreaks;
 import frc.robot.commands.drivetrain.StopBreaks;
 import frc.robot.commands.intake.DropIntake;
 import frc.robot.commands.intake.IntakeSpin;
-import frc.robot.commands.intake.IntakeSpinIn;
 import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.intake.StopDrop;
 import frc.robot.commands.pivot.TurnPivot;
@@ -30,11 +26,7 @@ import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.OperatorInput;
-
 import java.util.List;
-
-import org.opencv.osgi.OpenCVNativeLoader;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
@@ -49,11 +41,9 @@ import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstrai
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
