@@ -20,7 +20,7 @@ public class AlignVision extends CommandBase {
   private final Drivetrain m_subsystem;
   PhotonCamera camera = new PhotonCamera("OV5647");
   double visionRotationSpeed;
-  PIDController turnController = new PIDController(.10,0,0);
+  PIDController turnController = new PIDController(.20,0,0);
   /**
    * Creates a new ExampleCommand.
    *
@@ -46,13 +46,13 @@ public class AlignVision extends CommandBase {
     if (result.hasTargets()) {
         // Calculate angular turn power
         // -1.0 required to ensure positive PID controller effort _increases_ yaw
-        visionRotationSpeed = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+        visionRotationSpeed = turnController.calculate(result.getBestTarget().getYaw(), 0);
     } else {
        // If we have no targets, stay still.
        visionRotationSpeed = 0;
     } 
-    DriverStation.reportWarning("Speed = "+visionRotationSpeed, true);
-    RobotContainer.mDrivetrain.arcadeDrive(0, visionRotationSpeed/2);
+    DriverStation.reportWarning("Speed = "+turnController.calculate(visionRotationSpeed), true);
+    RobotContainer.mDrivetrain.arcadeDrive(0, turnController.calculate(visionRotationSpeed));
   }
 
   // Called once the command ends or is interrupted.

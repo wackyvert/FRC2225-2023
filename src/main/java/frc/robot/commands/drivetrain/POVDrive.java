@@ -30,21 +30,21 @@ public class POVDrive extends CommandBase {
     //chatgpt helped me write this. i did not want to type it all and to my surprise it did it no issue!
     rot = OperatorInput.getSecondRot();
     if(pov==0){
-      RobotContainer.mDrivetrain.hDrive(0.3, 0, 0);
-    } else if(pov==45){
-      RobotContainer.mDrivetrain.hDrive(0.3, 0, -0.1);
-    } else if(pov==90){
-      RobotContainer.mDrivetrain.hDrive(0, 0, -0.1);
-    } else if(pov==135){
-      RobotContainer.mDrivetrain.hDrive(-0.3, 0, -0.1);
-    } else if(pov==180){
       RobotContainer.mDrivetrain.hDrive(-0.3, 0, 0);
-    } else if(pov==225){
+    } else if(pov==45){
       RobotContainer.mDrivetrain.hDrive(-0.3, 0, 0.1);
-    } else if(pov==270){
-      RobotContainer.mDrivetrain.hDrive(0, 0, 0.1);
-    } else if(pov==315){
+    } else if(pov==90){
+      RobotContainer.mDrivetrain.hDrive(0, 0, .1);
+    } else if(pov==135){
       RobotContainer.mDrivetrain.hDrive(0.3, 0, 0.1);
+    } else if(pov==180){
+      RobotContainer.mDrivetrain.hDrive(0.3, 0, 0);
+    } else if(pov==225){
+      RobotContainer.mDrivetrain.hDrive(0.3, 0, -0.1);
+    } else if(pov==270){
+      RobotContainer.mDrivetrain.hDrive(0, 0, -0.1);
+    } else if(pov==315){
+      RobotContainer.mDrivetrain.hDrive(-0.3, 0, -0.1);
     } else{
       RobotContainer.mDrivetrain.hDrive(0, 0, 0);
     }

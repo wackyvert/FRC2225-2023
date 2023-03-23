@@ -91,6 +91,8 @@ public class RobotContainer {
   Trigger secondButton12 = new JoystickButton(leftjoystick, 12);
   Trigger secondButton14 = new JoystickButton(leftjoystick, 14);
   Trigger secondButton13 = new JoystickButton(leftjoystick, 13);
+  Trigger secondButton15 = new JoystickButton(leftjoystick, 15);
+  Trigger secondButton16 = new JoystickButton(leftjoystick, 16);
   Trigger buttonA = new Trigger(xboxController::getAButton);
   Trigger buttonB = new Trigger(xboxController::getBButton);
   Trigger buttonX = new Trigger(xboxController::getXButton);
@@ -137,9 +139,9 @@ public class RobotContainer {
     button4.onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
     button2.whileTrue(new IntakeSpin());
     button1.whileTrue(new IntakeSpinIn());
-    button11.onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(3.6), new StopBreaks()));
-    button12.onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(3.6), new StopBreaks()));
-    button16.onTrue(new pivotPosition());
+    secondButton15.onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(4.4), new StopBreaks()));
+    secondButton16.onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(4.4), new StopBreaks()));
+   
     secondButton14.whileTrue(new POVDrive());
 
   //Xbox bindings

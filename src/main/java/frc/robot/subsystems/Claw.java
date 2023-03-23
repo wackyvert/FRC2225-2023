@@ -68,12 +68,12 @@ Arm.set(0);
 }
 
 public void closeClaw(){
-Grab.set(.9);
+Grab.set(.7);
 
 }
 
 public void openClaw(){
-Grab.set(-.9);
+Grab.set(-.7);
 
 }
 public void stopClaw(){

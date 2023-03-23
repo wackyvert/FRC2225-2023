@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("None", null);
     CameraServer.startAutomaticCapture();
     
+    
   }
 
   /**
