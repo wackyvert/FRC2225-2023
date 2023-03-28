@@ -10,14 +10,14 @@ public class OperatorInput {
     
    public static Joystick joystick = new Joystick(Constants.OperatorConstants.RIGHTJOYSTICK_ID);
    public static Joystick joystick2 = new Joystick(Constants.OperatorConstants.LEFTJOYSTICK_ID);
-   public static XboxController xboxController = new XboxController(Constants.OperatorConstants.XBOX_CONTROLLER_ID);
+   //public static XboxController xboxController = new XboxController(Constants.OperatorConstants.XBOX_CONTROLLER_ID);
    
         public static double getX() {
           if(chargeStationMode)
           {return 0;}
           return ScaleInputs.scaleInputs(joystick.getX());
         }
-        public static double getcontrollerX() { //should be left stick horizontal axis
+     /*    public static double getcontrollerX() { //should be left stick horizontal axis
           return ScaleInputs.scaleInputs(xboxController.getRawAxis(0));
         }
         public static double getcontrollerY() { //should be left stick vertical axis
@@ -25,7 +25,7 @@ public class OperatorInput {
         }
         public static double getcontrollerRot() { //should be right stick horizontal axis
           return ScaleInputs.scaleInputs(xboxController.getRawAxis(4));
-        }
+         }*/
         public static double getY() {
           return ScaleInputs.scaleInputs(joystick.getY());
         }

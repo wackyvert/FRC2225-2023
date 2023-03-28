@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +24,8 @@ public class Robot extends TimedRobot {
   public static boolean chargeMode;
   private RobotContainer m_robotContainer;
   SendableChooser<Command> autoChooser ;
+  Servo eye1 = new Servo(3);
+  Servo eye2 = new Servo(4);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -59,7 +62,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {CommandScheduler.getInstance().cancelAll();}
 
   @Override
   public void disabledPeriodic() {}
@@ -89,16 +92,29 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     chargeMode = false;
-
+I=0;
     CommandScheduler.getInstance().setDefaultCommand(RobotContainer.mDrivetrain, new ArcadeDrive());
+    
   }
-
+  public double eyeValue;
+  int I;
+  boolean eye=false;
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    
+    I++;
     //SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
     //SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());
     SmartDashboard.putBoolean("Landing Gear", chargeMode);
+   
+   if(I%100==0){
+    eye^=eye;
+    if(eye){
+    eye1.set(.9);
+    }else{eye1.set(eye1.getPosition()/2);}
+   }
+   
     
 }
 

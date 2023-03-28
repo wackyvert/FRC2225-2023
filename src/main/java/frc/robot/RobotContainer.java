@@ -22,7 +22,7 @@ import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.intake.StopDrop;
 import frc.robot.commands.pivot.TurnPivot;
 import frc.robot.commands.pivot.TurnPivotDown;
-import frc.robot.commands.pivot.pivotPosition;
+
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 

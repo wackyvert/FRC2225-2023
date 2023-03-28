@@ -28,7 +28,7 @@ if (!xbox) {
     RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getY()), ScaleInputs.scaleInputs(OperatorInput.getRot(), .35, .15, .7)*.7, ScaleInputs.scaleInputs(OperatorInput.getRot(),.3,.15,2));
   }
   else{
-    RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getcontrollerY()), ScaleInputs.scaleInputs(OperatorInput.getcontrollerX())*.7, ScaleInputs.scaleInputs(OperatorInput.getcontrollerX()));
+    //RobotContainer.mDrivetrain.hDrive(ScaleInputs.scaleInputs(OperatorInput.getcontrollerY()), ScaleInputs.scaleInputs(OperatorInput.getcontrollerX())*.7, ScaleInputs.scaleInputs(OperatorInput.getcontrollerX()));
   }
 }
     
