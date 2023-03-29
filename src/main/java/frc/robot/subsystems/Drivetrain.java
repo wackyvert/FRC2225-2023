@@ -93,12 +93,12 @@ public class Drivetrain extends SubsystemBase {
         
     }
     public void dropBreaks(){
-        L_Brake.set(-.24);
-        R_Brake.set(-.24);
+        L_Brake.set(-.48);
+        R_Brake.set(-.48);
     }
     public void raiseBreaks(){
-        L_Brake.set(.24);
-        R_Brake.set(.24);
+        L_Brake.set(.48);
+        R_Brake.set(.48);
     }
     public void stopBreaks(){
         L_Brake.set(0);

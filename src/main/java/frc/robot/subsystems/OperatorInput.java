@@ -29,6 +29,15 @@ public class OperatorInput {
         public static double getY() {
           return ScaleInputs.scaleInputs(joystick.getY());
         }
+        public static double getSecondY() {
+          return joystick2.getY();
+        }
+        public static boolean joystickYActive() {
+        if(getSecondY()>.5||getSecondY()<-(-.5)){
+          return true;
+        }
+        else {return false;}
+        }
         public static double getRot(){
           if(chargeStationMode)
           {return 0;}

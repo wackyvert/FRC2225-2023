@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,7 +27,7 @@ public class Robot extends TimedRobot {
   SendableChooser<Command> autoChooser ;
   Servo eye1 = new Servo(3);
   Servo eye2 = new Servo(4);
-
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -102,7 +103,7 @@ I=0;
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    
+
     I++;
     //SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
     //SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());

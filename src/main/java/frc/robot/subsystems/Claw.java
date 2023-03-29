@@ -29,7 +29,6 @@ public class Claw extends SubsystemBase{
     Arm.setNeutralMode(NeutralMode.Brake);
 }
 public void periodic(){
-PivotEncoder=Pivot.getSelectedSensorPosition()/2048/100;
 }
 public double getPivotEncoder() {
     return PivotEncoder;
@@ -42,9 +41,7 @@ public void runPivot(){
 
 Pivot.set(0.5);
 }
-public void pivotPosition(){
-    Pivot.setVoltage(ff.calculate(Units.degreesToRadians(90), Pivot.getSelectedSensorVelocity()));
-}
+
 public void runPivotDown(){
 Pivot.set(-0.5);
 

@@ -51,8 +51,14 @@ public class AlignVision extends CommandBase {
        // If we have no targets, stay still.
        visionRotationSpeed = 0;
     } 
-    DriverStation.reportWarning("Speed = "+turnController.calculate(visionRotationSpeed), true);
-    RobotContainer.mDrivetrain.arcadeDrive(0, turnController.calculate(visionRotationSpeed));
+    
+    if(visionRotationSpeed>1){
+    RobotContainer.mDrivetrain.arcadeDrive(0, .6);
+    }if(visionRotationSpeed<-1){
+      RobotContainer.mDrivetrain.arcadeDrive(0, -.6);
+    }else{
+      RobotContainer.mDrivetrain.arcadeDrive(0, visionRotationSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.
