@@ -34,7 +34,7 @@ public class Claw extends SubsystemBase{
     Arm.setNeutralMode(NeutralMode.Brake);
 }
 public void periodic(){
-    grabEncoderVal = Grab.getSelectedSensorPosition();
+    grabEncoderVal = Grab.getSelectedSensorPosition()/2048;
     if(grabEncoderVal>=grabEncoderLimit){
         grabLimitMet=true;
     }
