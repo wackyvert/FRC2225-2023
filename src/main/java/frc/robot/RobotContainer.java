@@ -74,43 +74,7 @@ public class RobotContainer {
   CommandJoystick joystick = new CommandJoystick(Constants.OperatorConstants.RIGHTJOYSTICK_ID);
   CommandJoystick secondJoystick = new CommandJoystick(Constants.OperatorConstants.LEFTJOYSTICK_ID);
   XboxController xboxController = new XboxController(Constants.OperatorConstants.XBOX_CONTROLLER_ID);
-  Trigger button1 = joystick.button(1).whileTrue(new IntakeSpinIn());
-  Trigger button2 = joystick.button(2).whileTrue(new IntakeSpin());
-  Trigger button3 = joystick.button(3).onTrue(new SequentialCommandGroup(new DropIntake(), new WaitCommand(.27), new StopDrop()));
-  Trigger button4 = joystick.button(4).onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
-  /*Trigger button5 = new JoystickButton(rightjoystick, 5);
-  Trigger button6 = new JoystickButton(rightjoystick, 6);
-  Trigger button11 = new JoystickButton(rightjoystick, 11);
-  Trigger button12 = new JoystickButton(rightjoystick, 12);*/
-  Trigger button14 = joystick.button(14).whileTrue(new AlignVision(mDrivetrain));
- // Trigger button13 = new JoystickButton(rightjoystick, 13);
- // Trigger button15 = new JoystickButton(rightjoystick, 15);
-  //Trigger button16 = new JoystickButton(rightjoystick, 16);
-  Trigger secondButton1 = secondJoystick.button(1).whileTrue(new ArmOut());
-  Trigger secondButton2 = secondJoystick.button(2).whileTrue(new ArmIn());
-  Trigger secondButton3 = secondJoystick.button(3).whileTrue(new CloseClaw());
-  Trigger secondButton4 = secondJoystick.button(4).whileTrue(new OpenClaw());
- /*  Trigger secondButton5 = new JoystickButton(leftjoystick, 5);
-  Trigger secondButton6 = new JoystickButton(leftjoystick, 6);
-  Trigger secondButton11 = new JoystickButton(leftjoystick, 11);
-  Trigger secondButton12 = new JoystickButton(leftjoystick, 12);
-  Trigger secondButton14 = new JoystickButton(leftjoystick, 14);
-  Trigger secondButton13 = new JoystickButton(leftjoystick, 13);*/
-  Trigger secondButton15 =secondJoystick.button(15).onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(2.2), new StopBreaks()));
-  Trigger secondButton16 = secondJoystick.button(16).onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(2.2), new StopBreaks()));
-  Trigger buttonA = new Trigger(xboxController::getAButton);
-  Trigger buttonB = new Trigger(xboxController::getBButton);
-  Trigger buttonX = new Trigger(xboxController::getXButton);
-  Trigger buttonY = new Trigger(xboxController::getYButton);
-  Trigger leftBumper = new Trigger(xboxController::getLeftBumper);
-  Trigger rightBumper = new Trigger(xboxController::getRightBumper);
-  Trigger backButton = new Trigger(xboxController::getBackButton);
-  Trigger startButton = new Trigger(xboxController::getStartButton);
-  Trigger leftStickButton = new Trigger(xboxController::getLeftStickButton);
-  Trigger rightStickButton = new Trigger(xboxController::getRightStickButton);
-  boolean triggerbutton = false;
-  Trigger yAxisPositive = secondJoystick.axisGreaterThan(1, .5).whileTrue(new TurnPivotDown());
-  Trigger yAxisNegative = secondJoystick.axisLessThan(1,-.5).whileTrue(new TurnPivot());
+  
   
   
   public RobotContainer() {
@@ -134,30 +98,20 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
- 
-    secondButton1.whileTrue(new ArmOut());
-    secondButton2.whileTrue(new ArmIn());
-   // secondButton11.whileTrue(new TurnPivotDown());
-   // secondButton12.whileTrue(new TurnPivot());
-    
-    secondButton15.onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(4.4), new StopBreaks()));
-    secondButton16.onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(4.4), new StopBreaks()));
-   
-   // secondButton14.whileTrue(new POVDrive());
-   
-  //Xbox bindings
-    buttonA.whileTrue(new CloseClaw());
-    buttonB.whileTrue(new OpenClaw());
-    rightBumper.whileTrue(new ArmOut());
-    leftBumper.whileTrue(new ArmIn());
-    buttonX.whileTrue(new TurnPivotDown());
-    buttonY.whileTrue(new TurnPivot());
-    // button14.whileTrue(new IntakeSpinIn());
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
+  Trigger button1 = joystick.button(1).whileTrue(new IntakeSpinIn());
+  Trigger button2 = joystick.button(2).whileTrue(new IntakeSpin());
+  Trigger button3 = joystick.button(3).onTrue(new SequentialCommandGroup(new DropIntake(), new WaitCommand(.27), new StopDrop()));
+  Trigger button4 = joystick.button(4).onTrue(new SequentialCommandGroup(new RaiseIntake(), new WaitCommand(.27), new StopDrop()));
+  Trigger button14 = joystick.button(14).whileTrue(new AlignVision(mDrivetrain));
+  Trigger secondButton1 = secondJoystick.button(1).whileTrue(new ArmOut());
+  Trigger secondButton2 = secondJoystick.button(2).whileTrue(new ArmIn());
+  Trigger secondButton3 = secondJoystick.button(3).whileTrue(new CloseClaw());
+  Trigger secondButton4 = secondJoystick.button(4).whileTrue(new OpenClaw());
+  Trigger secondButton14 = secondJoystick.button(14).whileTrue(new POVDrive());
+  Trigger secondButton15 =secondJoystick.button(15).onTrue(new SequentialCommandGroup(new DropBreaks(), new WaitCommand(2.2), new StopBreaks()));
+  Trigger secondButton16 = secondJoystick.button(16).onTrue(new SequentialCommandGroup(new RaiseBreaks(), new WaitCommand(2.2), new StopBreaks()));
+  Trigger yAxisPositive = secondJoystick.axisGreaterThan(1, .5).whileTrue(new TurnPivot());
+  Trigger yAxisNegative = secondJoystick.axisLessThan(1,-.5).whileTrue(new TurnPivotDown());
 
   }
 
