@@ -14,6 +14,9 @@ public class Claw extends SubsystemBase{
     public WPI_TalonFX Grab;
     public WPI_TalonSRX Pivot;
     public double PivotEncoder;
+    public double grabEncoderVal;
+    public boolean grabLimitMet=false;
+    public double grabEncoderLimit= 6000;
     public PIDController armPidController = new PIDController(.019511, 0, .00435);
     ArmFeedforward ff = new ArmFeedforward(Constants.armkS, Constants.armkG, Constants.armkV, Constants.armkA);
     public Claw() {
@@ -21,6 +24,8 @@ public class Claw extends SubsystemBase{
     }
 
     public void initialize() {
+    //zero the grab counter at beginning of teleop
+        
 
     Arm = new WPI_TalonFX(Constants.Arm_CAN_ID);
     Grab = new WPI_TalonFX(Constants.Grab_CAN_ID);
@@ -29,6 +34,15 @@ public class Claw extends SubsystemBase{
     Arm.setNeutralMode(NeutralMode.Brake);
 }
 public void periodic(){
+    grabEncoderVal = Grab.getSelectedSensorPosition();
+    if(grabEncoderVal>=grabEncoderLimit){
+        grabLimitMet=true;
+    }
+    else {
+        grabLimitMet = false;
+    }
+
+
 }
 public double getPivotEncoder() {
     return PivotEncoder;
@@ -65,8 +79,9 @@ Arm.set(0);
 }
 
 public void closeClaw(){
+if(!grabLimitMet){
 Grab.set(.7);
-
+    }
 }
 
 public void openClaw(){

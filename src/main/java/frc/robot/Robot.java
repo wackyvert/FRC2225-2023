@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    RobotContainer.m_Claw.Grab.setSelectedSensorPosition(0);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -109,6 +110,7 @@ I=0;
     //SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
     //SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());
     SmartDashboard.putBoolean("Landing Gear", chargeMode);
+    SmartDashboard.putNumber("Grab Encoder", RobotContainer.m_Claw.grabEncoderVal);
    
    if(I%100==0){
     eye^=eye;
