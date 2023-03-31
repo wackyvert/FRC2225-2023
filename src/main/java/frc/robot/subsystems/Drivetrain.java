@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -117,7 +118,9 @@ public class Drivetrain extends SubsystemBase {
         return ticksToMeter(averageEncodersRate(m1, m2));
 
     }
-
+    public double getAverageEncoders(){
+        return (getEncoderSide(BR_drive, FR_drive)+getEncoderSide(BL_drive, FL_drive))/2;
+    }
     public double ticksToMeter(double encoder) {
         //TODO: Change this once chassis finished
         double whd = Units.inchesToMeters(6);//2048 talon fx cpr 
@@ -190,8 +193,8 @@ public class Drivetrain extends SubsystemBase {
           }
     @Override
     public void periodic(){
-        robotDriveOdometry.update(gyro.getRotation2d(), 0, 0);
-            //SmartDashboard.putNumber("Encoder", BL_drive.getSelectedSensorPosition());
+        robotDriveOdometry.update(gyro.getRotation2d(), getEncoderSide(BL_drive, BL_drive), getEncoderSide(BR_drive, FR_drive));
+            SmartDashboard.putNumber("Encoder", getAverageEncoders());
     }
     public PIDController chargeStationPID;
     double pitchAxis = 0;

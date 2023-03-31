@@ -19,7 +19,9 @@ import frc.robot.commands.intake.DropIntake;
 import frc.robot.commands.intake.IntakeSpin;
 import frc.robot.commands.intake.IntakeSpinIn;
 import frc.robot.commands.intake.RaiseIntake;
+import frc.robot.commands.intake.StartIntakeAuto;
 import frc.robot.commands.intake.StopDrop;
+import frc.robot.commands.intake.stopIntake;
 import frc.robot.commands.pivot.TurnPivot;
 import frc.robot.commands.pivot.TurnPivotDown;
 
@@ -41,6 +43,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -144,9 +147,9 @@ public class RobotContainer {
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        List.of(new Translation2d(Units.feetToMeters(6), 0), new Translation2d(Units.feetToMeters(10), 0)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
+        new Pose2d(Units.feetToMeters(16), 0, new Rotation2d(0)),
         // Pass config
         config);
     chosenTrajectory = exampleTrajectory;
@@ -171,6 +174,7 @@ public class RobotContainer {
     mDrivetrain.resetOdometry(chosenTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> mDrivetrain.tankDriveVolts(0, 0));
+    return  new SequentialCommandGroup(new StartIntakeAuto(), new WaitCommand(1), new stopIntake(), ramseteCommand.andThen(() -> mDrivetrain.tankDriveVolts(0, 0)));
+    
   }
 }
