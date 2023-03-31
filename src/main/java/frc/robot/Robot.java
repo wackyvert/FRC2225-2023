@@ -12,7 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.commands.intake.IntakeSpin;
+import frc.robot.commands.intake.StartIntakeAuto;
+import frc.robot.commands.intake.stopIntake;
 import frc.robot.commands.pivot.ZeroPivot;
 
 /**
@@ -78,11 +83,14 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    new SequentialCommandGroup(new StartIntakeAuto(), new WaitCommand(1), new stopIntake()).schedule();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    
+  }
 
   @Override
   public void teleopInit() {
@@ -105,7 +113,7 @@ I=0;
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
+    
     I++;
     //SmartDashboard.putData("Zero Pivot Encoder", new ZeroPivot());
     //SmartDashboard.putNumber("Pivot Encoder", RobotContainer.m_Claw.getPivotEncoder());

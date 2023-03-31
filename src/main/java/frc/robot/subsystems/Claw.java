@@ -16,7 +16,7 @@ public class Claw extends SubsystemBase{
     public double PivotEncoder;
     public double grabEncoderVal;
     public boolean grabLimitMet=false;
-    public double grabEncoderLimit= 6000;
+    public double grabEncoderLimit= 5.6;
     public PIDController armPidController = new PIDController(.019511, 0, .00435);
     ArmFeedforward ff = new ArmFeedforward(Constants.armkS, Constants.armkG, Constants.armkV, Constants.armkA);
     public Claw() {
@@ -37,7 +37,7 @@ public void periodic(){
     grabEncoderVal = Grab.getSelectedSensorPosition()/2048;
     if(grabEncoderVal>=grabEncoderLimit){
         grabLimitMet=true;
-    }
+        Grab.stopMotor();    }
     else {
         grabLimitMet = false;
     }
